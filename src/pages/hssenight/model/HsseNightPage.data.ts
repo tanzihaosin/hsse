@@ -10,7 +10,7 @@ export const hero: IntroHeroProps = {
   title: typograf('Ночь открытых дверей Высшей школы программной инженерии МФТИ'),
   description: typograf('Ночь открытых дверей ВШПИ МФТИ состоялась 4 июля 2025 года. На этой странице сохранена программа мероприятия.'),
   action: { label: typograf('Регистрация закрыта'), to: '#form' },
-  image: { src: '/images/campus.webp', alt: 'Кампус МФТИ' },
+  image: { src: '/images/campus.png', alt: 'Кампус МФТИ' },
 }
 
 export const eventDetails: EventDetailsProps = {

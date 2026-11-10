@@ -9,7 +9,7 @@ export const hero: IntroHeroProps = {
   title: typograf('Практико-ориентированное соревнование по информационной безопасности «Standoff Young»'),
   description: typograf('Специальное соревнование для студентов, обучающихся по подготовке топ-специалистов в сфере информационных технологий уровней'),
   action: { label: typograf('Подробнее о регистрации'), to: '#form' },
-  image: { src: '/images/campus.webp', alt: 'Кампус МФТИ' },
+  image: { src: '/images/campus.png', alt: 'Кампус МФТИ' },
 }
 
 export const stages = [
