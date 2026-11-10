@@ -72,21 +72,12 @@ describe('ContactForm: проверка формы', () => {
     }
   })
 
-  it('разблокирует отправку только после заполнения и проверки всех полей', async () => {
+  it('позволяет отправить пустую форму и показывает ошибки', async () => {
     const wrapper = await mountSuspended(ContactForm)
     const submit = wrapper.get('button[type="submit"]')
-    expect(submit.attributes('disabled')).toBeDefined()
-    await wrapper.get('input[name="name"]').setValue('Анна')
-    await wrapper.get('input[name="email"]').setValue('anna@example.com')
-    await wrapper.get('textarea[name="question"]').setValue('Как поступить?')
-    await wrapper.get('input[type="checkbox"]').setValue(true)
-    wrapper.getComponent(PhoneInput).vm.$emit('validity', 'loading')
-    await wrapper.vm.$nextTick()
-    expect(submit.attributes('disabled')).toBeDefined()
-    wrapper.getComponent(PhoneInput).vm.$emit('validity', 'valid')
-    await wrapper.vm.$nextTick()
     expect(submit.attributes('disabled')).toBeUndefined()
-    await wrapper.get('input[name="email"]').setValue('неверный адрес')
-    expect(submit.attributes('disabled')).toBeDefined()
+    await wrapper.get('form').trigger('submit')
+    expect(wrapper.get('input[name="name"]').attributes('aria-invalid')).toBe('true')
+    expect(wrapper.text()).toContain('Необходимо ваше согласие')
   })
 })

@@ -52,7 +52,7 @@ function submit() {
         <UiCheckbox v-model="form.consent" :error="touched.consent && !!errors.consent" :error-message="errors.consent" required @blur="touched.consent = true">
           Я подтверждаю, что принимаю <UiAction :to="privacyHref" external target="_blank" variant="link" size="custom" class="inline! underline">соглашение об обработке персональных данных МФТИ</UiAction>
         </UiCheckbox>
-        <UiAction type="submit" variant="invert" post-icon="arrow-up" :disabled="!isFormValid" class="mt-5">Задать вопрос</UiAction>
+        <UiAction type="submit" variant="invert" post-icon="arrow-up" class="mt-5">Задать вопрос</UiAction>
         <UiText v-if="message" role="status">{{ message }}</UiText>
       </form>
       <div v-else-if="submissionSucceeded" class="flex flex-1 flex-col items-start justify-center gap-4 pb-12" role="status">

@@ -5,12 +5,38 @@ import type { PhoneValidity } from '~/shared/lib/phone-validity'
 export function usePhoneInput(model: Ref<string>, disabled: () => boolean, emitValidity: (state: PhoneValidity) => void) {
   const input = ref<HTMLInputElement | null>(null)
   const fallback = ref(false)
+  const loading = ref(true)
   let instance: Iti | undefined
   let utilsReady = false
   let disposed = false
 
   function updateValue() {
     if (!input.value) return
+    if (utilsReady && instance?.getSelectedCountry()?.iso2 === 'ru') {
+      const field = input.value
+      const cursor = field.selectionStart ?? field.value.length
+      const cursorDigits = field.value.slice(0, cursor).replace(/\D/g, '').length
+      const rawDigits = field.value.replace(/\D/g, '')
+      const digits = (field.value.trimStart().startsWith('+7') ? rawDigits.slice(1) : rawDigits).slice(0, 10)
+      const format = (value: string) => {
+        if (!value) return ''
+        let result = `(${value.slice(0, 3)}`
+        if (value.length >= 3) result += ')'
+        if (value.length > 3) result += ` ${value.slice(3, 6)}`
+        if (value.length > 6) result += `-${value.slice(6, 8)}`
+        if (value.length > 8) result += `-${value.slice(8, 10)}`
+        return result
+      }
+      const formatted = format(digits)
+      if (field.value !== formatted) {
+        const wasAtEnd = cursor === field.value.length
+        field.value = formatted
+        if (document.activeElement === field) {
+          const position = wasAtEnd ? formatted.length : format(digits.slice(0, cursorDigits)).length
+          field.setSelectionRange(position, position)
+        }
+      }
+    }
     const value = input.value.value.trim()
     if (fallback.value) {
       model.value = value
@@ -53,6 +79,7 @@ export function usePhoneInput(model: Ref<string>, disabled: () => boolean, emitV
       await instance.promise
       if (disposed) return
       utilsReady = true
+      loading.value = false
       updateValue()
     } catch {
       if (disposed || !input.value) return
@@ -62,6 +89,7 @@ export function usePhoneInput(model: Ref<string>, disabled: () => boolean, emitV
       instance?.destroy()
       instance = undefined
       fallback.value = true
+      loading.value = false
       input.value.value = value && dialCode && !value.startsWith('+') ? `+${dialCode} ${value}` : value
       updateValue()
     }
@@ -87,5 +115,5 @@ export function usePhoneInput(model: Ref<string>, disabled: () => boolean, emitV
     instance?.destroy()
   })
 
-  return { input, fallback, updateValue }
+  return { input, fallback, loading, updateValue }
 }

@@ -26,7 +26,7 @@ const id = () => typeof attrs.id === 'string' ? attrs.id : generatedId
         >
         <UiSvg name="check" class="pointer-events-none absolute inset-0 size-5 text-foreground opacity-0 peer-checked:opacity-100 peer-checked:peer-disabled:opacity-50" />
       </span>
-      <label :for="id()" class="cursor-pointer text-sm font-light"><slot /></label>
+      <label :for="id()" class="cursor-pointer text-[13px] leading-5 font-light"><slot /></label>
     </div>
     <p v-if="error && errorMessage" :id="`${id()}-error`" class="text-error mt-1 text-xs">{{ errorMessage }}</p>
   </div>

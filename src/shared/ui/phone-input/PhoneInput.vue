@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<{
 }>(), { label: 'Телефон', name: 'phone', errorMessage: '', disabled: false })
 const model = defineModel<string>({ default: '' })
 const emit = defineEmits<{ validity: [state: PhoneValidity] }>()
-const { input, fallback, updateValue } = usePhoneInput(model, () => props.disabled, state => emit('validity', state))
+const { input, fallback, loading, updateValue } = usePhoneInput(model, () => props.disabled, state => emit('validity', state))
 const generatedId = useId()
 const attrs = useAttrs()
 const id = () => typeof attrs.id === 'string' ? attrs.id : generatedId
@@ -29,6 +29,8 @@ const id = () => typeof attrs.id === 'string' ? attrs.id : generatedId
       v-bind="Object.fromEntries(Object.entries($attrs).filter(([key]) => key !== 'class'))"
       :name="name"
       :disabled="disabled"
+      :readonly="loading"
+      :aria-busy="loading || undefined"
       :aria-invalid="error || undefined"
       :aria-describedby="describedBy(attrs['aria-describedby'], error && errorMessage ? `${id()}-error` : undefined, fallback ? `${id()}-fallback` : undefined)"
       type="tel"

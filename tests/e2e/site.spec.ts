@@ -30,7 +30,7 @@ test('модальное окно анкеты удерживает фокус �
   await expect(dialog).toBeVisible()
   await expect(dialog.getByText('Отправка анкет пока недоступна. Форма представлена для ознакомления.')).toBeVisible()
   await expect(dialog.getByRole('button', { name: 'Отправить анкету' })).toBeVisible()
-  await expect(dialog.getByRole('button', { name: 'Отправить анкету' })).toBeDisabled()
+  await expect(dialog.getByRole('button', { name: 'Отправить анкету' })).toBeEnabled()
   await page.locator('header a').first().evaluate((element: HTMLElement) => element.focus())
   await expect(dialog).toBeFocused()
   await page.keyboard.press('Escape')
@@ -38,12 +38,12 @@ test('модальное окно анкеты удерживает фокус �
   await expect(trigger).toBeFocused()
 })
 
-test('форма заранее сообщает об ограничении и блокирует отправку неполных данных', async ({ page }) => {
+test('форма показывает ошибки при потере фокуса и отправке неполных данных', async ({ page }) => {
   await page.goto('./')
   await expect(page.locator('.site-preloader')).toBeHidden()
   const form = page.locator('#form form')
   await expect(form.getByText('Отправка вопросов пока недоступна. Форма представлена для ознакомления.')).toBeVisible()
-  await expect(form.getByRole('button', { name: 'Задать вопрос' })).toBeDisabled()
+  await expect(form.getByRole('button', { name: 'Задать вопрос' })).toBeEnabled()
   await expect(form.getByRole('button', { name: 'Задать вопрос' })).toBeVisible()
   await form.getByLabel('Имя', { exact: true }).focus()
   await form.getByLabel('Имя', { exact: true }).blur()
@@ -55,7 +55,17 @@ test('форма заранее сообщает об ограничении и 
   await form.locator('input[type="checkbox"]').check()
   await expect(form.getByRole('button', { name: 'Задать вопрос' })).toBeEnabled({ timeout: 15_000 })
   await form.getByLabel('Почта').fill('неверный адрес')
-  await expect(form.getByRole('button', { name: 'Задать вопрос' })).toBeDisabled()
+  await form.getByRole('button', { name: 'Задать вопрос' }).click()
+  await expect(form.getByText('Введите корректный адрес почты')).toBeVisible()
+})
+
+test('телефон форматируется и ограничивает длину для выбранной страны', async ({ page }) => {
+  await page.goto('./')
+  const phone = page.locator('#form').getByRole('textbox', { name: 'Телефон', exact: true })
+  await expect(page.locator('#form .iti__selected-country')).toBeVisible()
+  await expect(phone).toBeEditable()
+  await phone.pressSequentially('9991234567890123')
+  await expect(phone).toHaveValue('(999) 123-45-67')
 })
 
 test('изображения загружаются с учётом базового пути сайта', async ({ page, baseURL }) => {

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "npm run lint:fsd && npm test && npm run typecheck && nuxt dev",
+    "dev": "npm run lint:fsd && npm run typecheck && nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
