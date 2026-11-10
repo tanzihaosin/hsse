@@ -75,6 +75,7 @@ export function usePhoneInput(model: Ref<string>, disabled: () => boolean, emitV
       })
       instance.setDisabled(disabled())
       if (model.value) instance.setNumber(model.value)
+      input.value.addEventListener('input', updateValue)
       input.value.addEventListener('countrychange', updateValue)
       await instance.promise
       if (disposed) return
@@ -86,10 +87,12 @@ export function usePhoneInput(model: Ref<string>, disabled: () => boolean, emitV
       const value = input.value.value.trim()
       const dialCode = instance?.getSelectedCountry()?.dialCode
       input.value.removeEventListener('countrychange', updateValue)
+      input.value.removeEventListener('input', updateValue)
       instance?.destroy()
       instance = undefined
       fallback.value = true
       loading.value = false
+      input.value.addEventListener('input', updateValue)
       input.value.value = value && dialCode && !value.startsWith('+') ? `+${dialCode} ${value}` : value
       updateValue()
     }
@@ -112,6 +115,7 @@ export function usePhoneInput(model: Ref<string>, disabled: () => boolean, emitV
   onBeforeUnmount(() => {
     disposed = true
     input.value?.removeEventListener('countrychange', updateValue)
+    input.value?.removeEventListener('input', updateValue)
     instance?.destroy()
   })
 

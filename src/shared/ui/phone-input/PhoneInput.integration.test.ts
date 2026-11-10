@@ -6,7 +6,9 @@ import PhoneInput from './PhoneInput.vue'
 const controls = vi.hoisted(() => ({ setDisabled: vi.fn(), destroy: vi.fn(), country: 'us' }))
 
 vi.mock('intl-tel-input', () => ({
-  default: (input: HTMLInputElement) => ({
+  default: (input: HTMLInputElement) => {
+    input.addEventListener('input', () => { input.value = input.value.replace(/[()]/g, '') })
+    return {
     promise: Promise.resolve(),
     setDisabled: controls.setDisabled,
     destroy: controls.destroy,
@@ -14,7 +16,8 @@ vi.mock('intl-tel-input', () => ({
     getNumber: () => input.value.replace(/\s/g, ''),
     getSelectedCountry: () => ({ iso2: controls.country }),
     isValidNumber: () => input.value.replace(/\s/g, '').length >= 12,
-  }),
+    }
+  },
 }))
 
 describe('PhoneInput: подключённая библиотека', () => {
