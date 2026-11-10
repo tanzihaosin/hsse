@@ -5,7 +5,7 @@ import { PaidAdmissionSteps } from '~/widgets/paid/admission-steps'
 import { EducationCredit } from '~/widgets/paid/education-credit'
 import { VideoBlock } from '~/widgets/video-block'
 import { ContactForm } from '~/widgets/contact-form'
-import { hero, admissionFacts, admissionSteps, educationCredit, video } from '../model/PaidPage.data'
+import * as paidData from '../model/PaidPage.data'
 
 useSeoMeta({
   title: 'Платное обучение — ВШПИ МФТИ',
@@ -14,10 +14,10 @@ useSeoMeta({
 </script>
 
 <template>
-  <IntroHero v-bind="hero" />
-  <FactsBlock v-bind="admissionFacts" />
-  <PaidAdmissionSteps v-bind="admissionSteps" />
-  <EducationCredit v-bind="educationCredit" />
-  <VideoBlock v-bind="video" />
+  <IntroHero v-bind="paidData.hero" />
+  <FactsBlock v-bind="paidData.admissionFacts" />
+  <PaidAdmissionSteps v-bind="paidData.admissionSteps" />
+  <EducationCredit v-bind="paidData.educationCredit" />
+  <VideoBlock v-bind="paidData.video" />
   <ContactForm title="Оставить заявку на платное обучение" />
 </template>

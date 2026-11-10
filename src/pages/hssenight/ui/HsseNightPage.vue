@@ -4,7 +4,7 @@ import { EventDetails } from '~/widgets/event-details'
 import { Partners } from '~/widgets/partners'
 import { EventProgram } from '~/widgets/event-program'
 import { ContactForm } from '~/widgets/contact-form'
-import { hero, eventDetails, partners, eventProgram, registration } from '../model/HsseNightPage.data'
+import * as hsseNightData from '../model/HsseNightPage.data'
 
 useSeoMeta({
   title: 'Ночь открытых дверей — ВШПИ МФТИ',
@@ -13,9 +13,9 @@ useSeoMeta({
 </script>
 
 <template>
-  <IntroHero v-bind="hero" />
-  <EventDetails v-bind="eventDetails" />
-  <Partners v-bind="partners" />
-  <EventProgram v-bind="eventProgram" />
-  <ContactForm v-bind="registration" />
+  <IntroHero v-bind="hsseNightData.hero" />
+  <EventDetails v-bind="hsseNightData.eventDetails" />
+  <Partners v-bind="hsseNightData.partners" />
+  <EventProgram v-bind="hsseNightData.eventProgram" />
+  <ContactForm v-bind="hsseNightData.registration" />
 </template>

@@ -6,7 +6,7 @@ import { PromoBlock } from '~/widgets/promo-block'
 import { EducationCareer } from '~/widgets/education-career'
 import { ContactForm } from '~/widgets/contact-form'
 import { PartnerIntro } from '~/widgets/cybersecurity/partner-intro'
-import { advantages, educationCareer, flagshipProgram, hero, partnerDescription, projectPractice, subjects } from '../model/CyberSecurityPage.data'
+import * as cyberSecurityData from '../model/CyberSecurityPage.data'
 
 useSeoMeta({
   title: 'Разработка систем кибербезопасности и реинжиниринг киберфизических систем — бакалавриат | ВШПИ МФТИ',
@@ -16,17 +16,17 @@ useSeoMeta({
 
 <template>
   <div>
-    <ProgramHero v-bind="hero" />
-    <PartnerIntro v-bind="partnerDescription" />
+    <ProgramHero v-bind="cyberSecurityData.hero" />
+    <PartnerIntro v-bind="cyberSecurityData.partnerDescription" />
   </div>
-  <AdvantagesBlock v-bind="advantages" />
+  <AdvantagesBlock v-bind="cyberSecurityData.advantages" />
   <section class="container" aria-label="Дисциплины программы">
     <ul class="flex flex-wrap justify-center gap-5 md:justify-start">
-      <UiBadge v-for="subject in subjects" :key="subject" as="li" variant="outline" class="bg-primary! px-4! text-base!">{{ subject }}</UiBadge>
+      <UiBadge v-for="subject in cyberSecurityData.subjects" :key="subject" as="li" variant="outline" class="bg-primary! px-4! text-base!">{{ subject }}</UiBadge>
     </ul>
   </section>
-  <ProjectPractice v-bind="projectPractice" />
-  <PromoBlock v-bind="flagshipProgram">
+  <ProjectPractice v-bind="cyberSecurityData.projectPractice" />
+  <PromoBlock v-bind="cyberSecurityData.flagshipProgram">
     <template #image>
       <div class="flex w-60 max-w-full shrink-0 flex-col items-center gap-8 self-center">
         <NuxtPicture src="/images/promo/graduation-cap.webp" alt="" class="w-46 max-w-full" :img-attrs="{ class: 'h-auto w-full' }" />
@@ -34,6 +34,6 @@ useSeoMeta({
       </div>
     </template>
   </PromoBlock>
-  <EducationCareer v-bind="educationCareer" />
+  <EducationCareer v-bind="cyberSecurityData.educationCareer" />
   <ContactForm />
 </template>

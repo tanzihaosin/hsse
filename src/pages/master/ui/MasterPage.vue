@@ -10,8 +10,8 @@ import { StudyDisciplines } from '~/widgets/master/study-disciplines'
 import { PeopleSlider } from '~/widgets/people-slider'
 import { AdmissionSteps } from '~/widgets/master/admission-steps'
 import { MasterApplicationForm } from '~/widgets/master/application-form'
-import { hero, programFacts, targetAudience, aboutProgram, studyComponents, programImplementation, salaryRanking, studyDisciplines, admissionFacts, admissionSteps } from '../model/MasterPage.data'
-import { programTeam } from '../model/ProgramTeam.data'
+import * as masterData from '../model/MasterPage.data'
+import * as programTeamData from '../model/ProgramTeam.data'
 
 const applicationOpen = ref(false)
 
@@ -22,17 +22,17 @@ useSeoMeta({
 </script>
 
 <template>
-  <ProgramHero v-bind="hero" @action="applicationOpen = true" />
-  <FactsBlock v-bind="programFacts" />
-  <TargetAudience v-bind="targetAudience" />
-  <AboutProgram v-bind="aboutProgram" />
-  <AdvantagesBlock v-bind="studyComponents" />
-  <ProgramImplementation v-bind="programImplementation" />
-  <SalaryRanking v-bind="salaryRanking" />
-  <StudyDisciplines v-bind="studyDisciplines" />
-  <FactsBlock v-bind="admissionFacts" />
-  <PeopleSlider id="team" v-bind="programTeam" />
-  <AdmissionSteps id="kakpostupit" v-bind="admissionSteps" @action="applicationOpen = true" />
+  <ProgramHero v-bind="masterData.hero" @action="applicationOpen = true" />
+  <FactsBlock v-bind="masterData.programFacts" />
+  <TargetAudience v-bind="masterData.targetAudience" />
+  <AboutProgram v-bind="masterData.aboutProgram" />
+  <AdvantagesBlock v-bind="masterData.studyComponents" />
+  <ProgramImplementation v-bind="masterData.programImplementation" />
+  <SalaryRanking v-bind="masterData.salaryRanking" />
+  <StudyDisciplines v-bind="masterData.studyDisciplines" />
+  <FactsBlock v-bind="masterData.admissionFacts" />
+  <PeopleSlider id="team" v-bind="programTeamData.programTeam" />
+  <AdmissionSteps id="kakpostupit" v-bind="masterData.admissionSteps" @action="applicationOpen = true" />
   <UiModal v-model="applicationOpen" size="lg" title="Анкета для поступления">
     <MasterApplicationForm />
   </UiModal>

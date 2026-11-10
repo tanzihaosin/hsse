@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { telegramPromo, admissionOverview, admissionPaths, advantages, bestProjects, educationCareer, eventsHsse, factsBlocks, faq, hero, partners, peopleSlider, projectPractice, video } from '../model/HomePage.data'
+import * as homeData from '../model/HomePage.data'
 import { ContactForm } from '~/widgets/contact-form'
 import { PromoBlock } from '~/widgets/promo-block'
 import { AdvantagesBlock } from '~/widgets/advantages'
@@ -22,19 +22,19 @@ useSeoMeta({
 </script>
 
 <template>
-  <HeroBlock v-bind="hero" />
-  <VideoBlock id="about" v-bind="video" />
-  <AdvantagesBlock id="learn" v-bind="advantages" />
-  <ProjectPractice v-bind="projectPractice" />
-  <Partners v-bind="partners" />
-  <EducationCareer v-bind="educationCareer" />
-  <PeopleSlider id="team" v-bind="peopleSlider" />
-  <BestProject v-bind="bestProjects" />
-  <AdmissionPaths id="kakpostupit" v-bind="admissionPaths" />
-  <AdmissionOverview v-bind="admissionOverview" />
-  <FactsBlock v-for="block in factsBlocks" :key="block.title" v-bind="block" />
-  <EventsHsse v-bind="eventsHsse" />
-  <FaqBlock v-bind="faq" />
+  <HeroBlock v-bind="homeData.hero" />
+  <VideoBlock id="about" v-bind="homeData.video" />
+  <AdvantagesBlock id="learn" v-bind="homeData.advantages" />
+  <ProjectPractice v-bind="homeData.projectPractice" />
+  <Partners v-bind="homeData.partners" />
+  <EducationCareer v-bind="homeData.educationCareer" />
+  <PeopleSlider id="team" v-bind="homeData.peopleSlider" />
+  <BestProject v-bind="homeData.bestProjects" />
+  <AdmissionPaths id="kakpostupit" v-bind="homeData.admissionPaths" />
+  <AdmissionOverview v-bind="homeData.admissionOverview" />
+  <FactsBlock v-for="block in homeData.factsBlocks" :key="block.title" v-bind="block" />
+  <EventsHsse v-bind="homeData.eventsHsse" />
+  <FaqBlock v-bind="homeData.faq" />
   <ContactForm />
-  <PromoBlock v-bind="telegramPromo" />
+  <PromoBlock v-bind="homeData.telegramPromo" />
 </template>
