@@ -23,11 +23,12 @@ const errors = computed(() => ({
   question: !form.question.trim() ? 'Это обязательное поле' : '',
   consent: !form.consent ? 'Необходимо ваше согласие' : '',
 }))
+const isFormValid = computed(() => !Object.values(errors.value).some(Boolean))
 
 function submit() {
   message.value = ''
   Object.assign(touched, { name: true, phone: true, email: true, question: true, consent: true })
-  if (Object.values(errors.value).some(Boolean)) return
+  if (!isFormValid.value) return
   message.value = 'Отправка вопроса пока недоступна.'
 }
 </script>
@@ -40,6 +41,7 @@ function submit() {
         <NuxtPicture :src="image" alt="" :width="828" :height="776" loading="lazy" class="mt-auto hidden max-w-120 pt-8 md:block" :img-attrs="{ class: 'w-full' }" />
       </div>
       <form v-if="!registrationClosed && !submissionSucceeded" class="flex flex-1 flex-col gap-4 pb-12" novalidate @submit.prevent="submit">
+        <UiText>Отправка вопросов пока недоступна. Форма представлена для ознакомления.</UiText>
         <UiInput v-model="form.name" label="Имя" placeholder="Имя" name="name" autocomplete="name" :error="touched.name ? errors.name : ''" required @blur="touched.name = true" />
         <UiPhoneInput v-model="form.phone" name="tel" :error="touched.phone && !!errors.phone" :error-message="errors.phone" required @blur="touched.phone = true" @validity="phoneValidity = $event" />
         <UiInput v-model="form.email" label="Почта" placeholder="Email" type="email" name="email" autocomplete="email" :error="touched.email ? errors.email : ''" required @blur="touched.email = true" />
@@ -47,7 +49,7 @@ function submit() {
         <UiCheckbox v-model="form.consent" :error="touched.consent && !!errors.consent" :error-message="errors.consent" required @blur="touched.consent = true">
           Я подтверждаю, что принимаю <UiAction :to="privacyHref" external target="_blank" variant="link" size="custom" class="inline! underline">соглашение об обработке персональных данных МФТИ</UiAction>
         </UiCheckbox>
-        <UiAction type="submit" variant="invert" post-icon="arrow-up" class="mt-5">Задать вопрос</UiAction>
+        <UiAction type="submit" variant="invert" post-icon="arrow-up" :disabled="!isFormValid" class="mt-5">Задать вопрос</UiAction>
         <UiText v-if="message" role="status">{{ message }}</UiText>
       </form>
       <div v-else-if="submissionSucceeded" class="flex flex-1 flex-col items-start justify-center gap-4 pb-12" role="status">

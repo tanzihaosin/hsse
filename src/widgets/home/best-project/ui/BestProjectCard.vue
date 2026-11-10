@@ -16,7 +16,7 @@ defineEmits<{ play: [] }>()
       <UiText class="mt-3"><template v-if="project.descriptionLink"><UiAction :to="project.descriptionLink.to" variant="link" size="custom" class="inline! leading-normal! underline">{{ project.descriptionLink.label }}</UiAction>{{ ' ' }}</template>{{ project.description }}</UiText>
       <UiText class="mt-3 italic">{{ project.note }}</UiText>
       <div class="min-h-10 flex-1" />
-      <UiAction variant="invert" post-icon="arrow-up" class="self-end border-2" @click="$emit('play')">Посмотреть видео</UiAction>
+      <UiAction :to="project.video" external target="_blank" variant="invert" post-icon="arrow-up" class="self-end border-2" @click.prevent="$emit('play')">Посмотреть видео</UiAction>
     </div>
   </article>
 </template>

@@ -73,11 +73,11 @@ function updateState(event: Event) {
       :next="swiper.next"
       :go-to="goTo"
     >
-      <div v-if="navigation && pageCount > 1" class="mt-9 flex items-center justify-center gap-7">
+      <div v-if="navigation && pageCount > 1" class="mt-9 flex items-center justify-center gap-2 md:gap-7">
         <UiAction variant="custom" size="custom" aria-label="Предыдущий слайд" :disabled="isBeginning" class="disabled:border-0 disabled:bg-transparent disabled:text-foreground disabled:opacity-25" @click="swiper.prev()">
           <UiSvg name="arrow-prev" class="size-9" />
         </UiAction>
-        <div class="flex items-center gap-4" aria-label="Выбор слайда">
+        <div class="flex items-center gap-0.5 md:gap-1" role="group" aria-label="Выбор слайда">
           <UiAction
             v-for="page in pageCount"
             :key="page"
@@ -85,15 +85,24 @@ function updateState(event: Event) {
             size="custom"
             :aria-label="slideLabels[pageSlideIndex(page - 1)] || `Слайд ${pageSlideIndex(page - 1) + 1}`"
             :aria-current="activePage === page - 1 ? 'true' : undefined"
-            :class="[activePage === page - 1 ? 'scale-125 bg-foreground' : 'bg-foreground/50', { 'hidden! md:inline-flex!': !visiblePages.includes(page - 1) }]"
-            class="size-3 rounded-full"
+            :class="{ 'hidden! md:inline-flex!': !visiblePages.includes(page - 1) }"
+            class="size-8"
             @click="goToPage(page - 1)"
-          />
+          >
+            <span aria-hidden="true" class="size-3 rounded-full" :class="activePage === page - 1 ? 'scale-125 bg-foreground' : 'bg-foreground/50'" />
+          </UiAction>
         </div>
         <UiAction variant="custom" size="custom" aria-label="Следующий слайд" :disabled="isEnd" class="disabled:border-0 disabled:bg-transparent disabled:text-foreground disabled:opacity-25" @click="swiper.next()">
           <UiSvg name="arrow-next" class="size-9" />
         </UiAction>
       </div>
     </slot>
+    <template #fallback>
+      <slot name="fallback">
+        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3 [&>swiper-slide]:block">
+          <slot />
+        </div>
+      </slot>
+    </template>
   </ClientOnly>
 </template>

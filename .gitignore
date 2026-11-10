@@ -6,6 +6,8 @@
 .cache
 dist
 .playwright-mcp
+playwright-report
+test-results
 
 # Node dependencies
 node_modules

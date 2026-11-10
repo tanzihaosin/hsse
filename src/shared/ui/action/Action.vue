@@ -2,6 +2,7 @@
 import type { ActionProps } from './Action.types'
 import {
   ACTION_BASE_CLASSES,
+  ACTION_DISABLED_CLASSES,
   ACTION_VARIANT_CLASSES,
   ACTION_SIZE_CLASSES,
 } from './Action.constants'
@@ -62,8 +63,7 @@ if (import.meta.dev) {
     :class="[
       ACTION_BASE_CLASSES,
       ACTION_SIZE_CLASSES[size],
-      ACTION_VARIANT_CLASSES[disabled ? 'disabled' : variant],
-      disabled && 'pointer-events-none',
+      disabled ? ACTION_DISABLED_CLASSES[variant] : ACTION_VARIANT_CLASSES[variant],
     ]"
   >
     <UiSvg v-if="icon" :name="icon" :class="iconClass" />

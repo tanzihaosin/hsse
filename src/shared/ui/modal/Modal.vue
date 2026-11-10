@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onKeyStroke, useScrollLock } from '@vueuse/core'
+import { onKeyStroke, useEventListener, useScrollLock } from '@vueuse/core'
 import type { ModalProps } from './Modal.types'
 import { MODAL_BASE_CLASSES, MODAL_OVERLAY_CLASSES, MODAL_SIZE_CLASSES } from './Modal.constants'
 
@@ -25,6 +25,11 @@ onKeyStroke('Escape', () => {
 })
 
 const isLocked = useScrollLock(import.meta.client ? document.documentElement : null)
+useEventListener(import.meta.client ? document : undefined, 'focusin', (event: FocusEvent) => {
+  if (open.value && dialogRef.value && event.target instanceof Node && !dialogRef.value.contains(event.target)) {
+    dialogRef.value.focus()
+  }
+})
 watch(open, (value) => (isLocked.value = value), { immediate: true })
 onBeforeUnmount(() => {
   isLocked.value = false

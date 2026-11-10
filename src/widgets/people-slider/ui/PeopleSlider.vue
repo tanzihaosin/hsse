@@ -19,11 +19,23 @@ const swiperOptions = { spaceBetween: 20, slidesPerView: 1, roundLengths: true, 
 <template>
   <section v-if="groups.length" class="container">
     <UiHeading class="mb-10">{{ title }}</UiHeading>
-    <UiTabs v-if="groups.length > 1" v-model="selectedGroup" :items="tabs" class="mb-4" />
+    <ClientOnly>
+      <UiTabs v-if="groups.length > 1" v-model="selectedGroup" :items="tabs" class="mb-4" />
+    </ClientOnly>
     <UiSwiper v-if="currentGroup?.people.length" :key="currentGroup.id" :options="swiperOptions" :slide-labels="currentGroup.people.map(person => person.name)">
       <swiper-slide v-for="person in currentGroup.people" :key="person.name" class="h-auto">
         <PersonCard :person="person" />
       </swiper-slide>
+      <template #fallback>
+        <div class="space-y-8">
+          <section v-for="group in groups" :key="group.id">
+            <UiHeading as="h3" variant="h3" class="mb-4">{{ group.label }}</UiHeading>
+            <ul class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+              <li v-for="person in group.people" :key="person.name"><PersonCard :person="person" /></li>
+            </ul>
+          </section>
+        </div>
+      </template>
     </UiSwiper>
   </section>
 </template>

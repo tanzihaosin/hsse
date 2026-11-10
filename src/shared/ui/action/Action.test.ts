@@ -18,4 +18,11 @@ describe('Action', () => {
     expect(link.attributes('target')).toBe('_blank')
     expect(link.attributes('rel')).toBe('noopener noreferrer')
   })
+
+  it('сохраняет форму и контраст отключённой кнопки на светлом фоне', async () => {
+    const wrapper = await mountSuspended(Action, { props: { variant: 'invert', disabled: true }, slots: { default: 'Отправить' } })
+    expect(wrapper.classes()).toContain('rounded-full')
+    expect(wrapper.classes()).toContain('text-primary/60')
+    expect(wrapper.attributes('disabled')).toBeDefined()
+  })
 })

@@ -58,6 +58,8 @@ npm run lint       # ESLint
 npm run lint:fsd   # Проверка архитектуры FSD
 npm run typecheck  # Проверка типов
 npm test           # Тесты
+npx playwright install chromium # Установка браузера для сквозных тестов
+npm run test:e2e   # Проверка основных сценариев в браузере
 npm run generate   # Генерация статического сайта
 ```
 

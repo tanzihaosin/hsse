@@ -260,10 +260,10 @@ export const factsBlocks: FactsBlockProps[] = [
 ]
 
 export const eventsHsse: EventsHsseProps = {
-  title: typograf('Мероприятия ВШПИ'),
+  title: typograf('Архив мероприятий ВШПИ за 2026 год'),
   events: [
     {
-      date: typograf("10 июля"),
+      date: typograf("10 июля 2026"),
       datetime: '2026-07-10',
       title: typograf("НОЧЬ ОТКРЫТЫХ ДВЕРЕЙ"),
       paragraphs: [
@@ -279,7 +279,7 @@ export const eventsHsse: EventsHsseProps = {
       link: "https://forms.yandex.ru/u/6a3398a25056903124e25d9d",
     },
     {
-      date: typograf("8 июля"),
+      date: typograf("8 июля 2026"),
       datetime: '2026-07-08',
       title: typograf("ВЕБИНАР О ПОСТУПЛЕНИИ В ВШПИ МФТИ"),
       paragraphs: [
@@ -289,7 +289,7 @@ export const eventsHsse: EventsHsseProps = {
       link: "https://my.mts-link.ru/j/HSSE/21973860918",
     },
     {
-      date: typograf("6 июля"),
+      date: typograf("6 июля 2026"),
       datetime: '2026-07-06',
       title: typograf("ВЕБИНАР. О СПЕЦИАЛИЗАЦИИ «РАЗРАБОТКА СИСТЕМ КИБЕРБЕЗОПАСНОСТИ И РЕИНЖИНИРИНГ КИБЕРФИЗИЧЕСКИХ СИСТЕМ» ОТ POSITIVE TECHNOLOGIES"),
       paragraphs: [
@@ -298,7 +298,7 @@ export const eventsHsse: EventsHsseProps = {
       link: "https://my.mts-link.ru/j/HSSE/19958926143",
     },
     {
-      date: typograf("26 июня"),
+      date: typograf("26 июня 2026"),
       datetime: '2026-06-26',
       title: typograf("Вебинар о специализациях ВШПИ от представителей ИТ-индустрии"),
       paragraphs: [],
@@ -306,7 +306,7 @@ export const eventsHsse: EventsHsseProps = {
       link: "https://my.mts-link.ru/j/HSSE/19958926143",
     },
     {
-      date: typograf("20 июня"),
+      date: typograf("20 июня 2026"),
       datetime: '2026-06-20',
       title: typograf("День открытых дверей ВШПИ! Онлайн-встреча с директором"),
       paragraphs: [
@@ -316,7 +316,7 @@ export const eventsHsse: EventsHsseProps = {
       link: "https://my.mts-link.ru/j/HSSE/19957777678",
     },
     {
-      date: typograf("11 июня"),
+      date: typograf("11 июня 2026"),
       datetime: '2026-06-11',
       title: typograf("Вебинар. Платное обучение: мифы и реальность"),
       paragraphs: [
@@ -326,7 +326,7 @@ export const eventsHsse: EventsHsseProps = {
       link: "https://my.mts-link.ru/j/HSSE/19956218255",
     },
     {
-      date: typograf("5 июня"),
+      date: typograf("5 июня 2026"),
       datetime: '2026-06-05',
       title: typograf("Вебинар. Как студенты ВШПИ работают над проектами топ-компаний с первого курса"),
       paragraphs: [
@@ -336,7 +336,7 @@ export const eventsHsse: EventsHsseProps = {
       link: "https://my.mts-link.ru/j/HSSE/19954207240",
     },
     {
-      date: typograf("28 мая"),
+      date: typograf("28 мая 2026"),
       datetime: '2026-05-28',
       title: typograf("Вебинар. Поступление в ВШПИ: ЕГЭшник, БВИ и платник"),
       paragraphs: [

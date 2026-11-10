@@ -6,10 +6,10 @@ import type { ContactFormProps } from '~/widgets/contact-form'
 import { typograf } from '~/shared/lib/typograf'
 
 export const hero: IntroHeroProps = {
-  badge: typograf('Мероприятие ВШПИ'),
+  badge: typograf('Архив мероприятия · 2026'),
   title: typograf('День открытых дверей Высшей школы программной инженерии МФТИ'),
-  description: typograf('Отличная возможность узнать больше об одной из самых молодых физтех-школ МФТИ, пообщаться со студентами, преподавателями и партнёрами, а также принять участие в розыгрыше призов!'),
-  action: { label: typograf('Подробнее о регистрации'), to: '#form' },
+  description: typograf('День открытых дверей ВШПИ МФТИ состоялся 21 марта 2026 года. На этой странице сохранена программа мероприятия.'),
+  action: { label: typograf('Регистрация закрыта'), to: '#form' },
   image: { src: '/images/campus.webp', alt: 'Кампус МФТИ' },
 }
 
