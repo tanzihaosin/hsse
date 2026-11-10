@@ -16,9 +16,7 @@ import { FactsBlock } from '~/widgets/facts-block'
 import { EventsHsse } from '~/widgets/home/events-hsse'
 import { FaqBlock } from '~/widgets/home/faq-block'
 
-useSeoMeta({
-  description: 'Высшая школа программной инженерии МФТИ: образовательные программы, проектная практика, команда и условия поступления.',
-})
+useSeoMeta({ description: homeData.homePageData.meta?.description })
 </script>
 
 <template>
