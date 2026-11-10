@@ -1,0 +1,1 @@
+export { default as SoftwareSystemsPage } from './ui/SoftwareSystemsPage.vue'

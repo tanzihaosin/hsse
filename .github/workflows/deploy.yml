@@ -1,0 +1,54 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  checks:
+    uses: ./.github/workflows/checks.yml
+
+  build:
+    needs: checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Configure base URL
+        shell: bash
+        run: |
+          repo="${GITHUB_REPOSITORY#*/}"
+          if [[ "${repo,,}" == "${GITHUB_REPOSITORY_OWNER,,}.github.io" ]]; then
+            echo "NUXT_APP_BASE_URL=/" >> "$GITHUB_ENV"
+          else
+            echo "NUXT_APP_BASE_URL=/$repo/" >> "$GITHUB_ENV"
+          fi
+          echo "NUXT_IMAGE_PROVIDER=none" >> "$GITHUB_ENV"
+      - run: npm run generate
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .output/public
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

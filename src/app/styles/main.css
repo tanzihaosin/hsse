@@ -1,0 +1,38 @@
+@import 'tailwindcss';
+@import './fonts.css';
+
+@theme {
+  --font-sans: 'Manrope Variable', sans-serif;
+  --font-dewi: 'RF Dewi', sans-serif;
+  --font-dewi-extended: 'RF Dewi Extended', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --default-font-size: 16px;
+  --default-line-height: 1.5;
+
+  --color-primary: #161925;
+  --color-primary-lighter: #20232f;
+  --color-foreground: #f1e9e0;
+  --color-foreground-muted: #b8b1a2;
+  --color-stroke: #4a4a4a;
+  --color-error: #f00;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+@layer base {
+  body {
+    font-size: var(--default-font-size);
+    font-optical-sizing: auto;
+    line-height: var(--default-line-height);
+    background-color: var(--color-primary);
+    color: var(--color-foreground);
+  }
+}
+
+.container {
+  @apply mx-auto max-w-275 px-5 min-[1140px]:px-0;
+}
