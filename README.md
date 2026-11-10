@@ -32,7 +32,7 @@
 
 ## Технологии
 
-Nuxt 4, Vue 3, TypeScript, Tailwind CSS 4, Nuxt Image и Swiper. Архитектура исходного кода следует принципам Feature-Sliced Design.
+Nuxt 4, Vue 3, TypeScript, Tailwind CSS 4, Nuxt Image и Swiper. Для выбора страны и ввода телефона используются `intl-tel-input` и IMask. Проверки и тесты построены на ESLint, Steiger, Vitest и Playwright. Архитектура исходного кода следует принципам Feature-Sliced Design.
 
 ## Быстрый старт
 
@@ -45,7 +45,7 @@ npm ci
 npm run dev
 ```
 
-Откройте адрес, который выведет Nuxt (обычно <http://localhost:3000>). Команда `npm run dev` сначала проверяет архитектуру FSD, запускает тесты и проверку типов. Для остановки сервера нажмите `Ctrl+C`.
+Откройте адрес, который выведет Nuxt (обычно <http://localhost:3000>). Команда `npm run dev` сначала проверяет архитектуру FSD и типы. Для остановки сервера нажмите `Ctrl+C`.
 
 ## Как посмотреть проект
 
