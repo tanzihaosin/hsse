@@ -15,4 +15,17 @@ describe('Text', () => {
     expect(wrapper.find('script').exists()).toBe(false)
     expect(wrapper.html()).not.toContain('onerror')
   })
+
+  it('выводит цитату и применяет выбранный шрифт вместо шрифта варианта', async () => {
+    const wrapper = await mountSuspended(Text, { props: { as: 'blockquote', variant: 'label', font: 'dewi-extended' }, slots: { default: 'Цитата' } })
+    expect(wrapper.element.tagName).toBe('BLOCKQUOTE')
+    expect(wrapper.text()).toBe('Цитата')
+    expect(wrapper.classes()).toContain('font-dewi-extended')
+    expect(wrapper.classes()).not.toContain('font-mono')
+  })
+
+  it('сохраняет моноширинный шрифт варианта по умолчанию', async () => {
+    const wrapper = await mountSuspended(Text, { props: { variant: 'mono' } })
+    expect(wrapper.classes()).toContain('font-mono')
+  })
 })
