@@ -14,7 +14,7 @@ vi.mock('intl-tel-input', () => ({
     destroy: controls.destroy,
     setNumber: (value: string) => { input.value = value },
     getNumber: () => input.value.replace(/\s/g, ''),
-    getSelectedCountry: () => ({ iso2: controls.country }),
+    getSelectedCountry: () => ({ iso2: controls.country, dialCode: controls.country === 'ru' ? '7' : '1' }),
     isValidNumber: () => input.value.replace(/\s/g, '').length >= 12,
     }
   },
@@ -44,7 +44,7 @@ describe('PhoneInput: подключённая библиотека', () => {
     await vi.waitFor(() => expect(controls.setDisabled).toHaveBeenCalled())
     await flushPromises()
     const input = wrapper.get('input')
-    await input.setValue('+7 977 452 52 54123')
+    await input.trigger('paste', { clipboardData: { getData: () => '+7 977 452 52 54123' } })
     expect((input.element as HTMLInputElement).value).toBe('(977) 452-52-54')
     wrapper.unmount()
   })

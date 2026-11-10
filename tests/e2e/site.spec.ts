@@ -73,12 +73,25 @@ test('телефоны других стран сохраняют свой фо�
   const form = page.locator('#form')
   const phone = form.getByRole('textbox', { name: 'Телефон', exact: true })
   await expect(phone).toBeEditable()
-  for (const [country, digits] of [['us', '2025550123'], ['gb', '7400123456'], ['de', '15123456789']]) {
+  for (const [country, digits, expected] of [
+    ['us', '2025550123', '(202) 555-0123'],
+    ['gb', '7400123456', '74 0012 3456'],
+    ['de', '15123456', '15 123456'],
+    ['au', '123456789', '1 2345 6789'],
+  ]) {
     await phone.fill('')
     await form.locator('.iti__selected-country').click()
     await form.locator(`[data-iso2="${country}"]`).click()
-    await phone.pressSequentially(digits!)
+    if (country === 'au') {
+      await phone.pressSequentially('12345')
+      await expect(phone).toHaveValue('1 2345 ____')
+      await phone.blur()
+      await expect(phone).toHaveAttribute('aria-invalid', 'true')
+      await phone.fill('')
+    }
+    await phone.pressSequentially(`${digits}00`)
     expect((await phone.inputValue()).replace(/\D/g, '')).toBe(digits)
+    await expect(phone).toHaveValue(expected!)
     await phone.blur()
     await expect(phone).not.toHaveAttribute('aria-invalid', 'true')
   }
