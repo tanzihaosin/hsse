@@ -68,6 +68,22 @@ test('телефон форматируется и ограничивает дл
   await expect(phone).toHaveValue('(999) 123-45-67')
 })
 
+test('телефоны других стран сохраняют свой формат и проходят проверку', async ({ page }) => {
+  await page.goto('./')
+  const form = page.locator('#form')
+  const phone = form.getByRole('textbox', { name: 'Телефон', exact: true })
+  await expect(phone).toBeEditable()
+  for (const [country, digits] of [['us', '2025550123'], ['gb', '7400123456'], ['de', '15123456789']]) {
+    await phone.fill('')
+    await form.locator('.iti__selected-country').click()
+    await form.locator(`[data-iso2="${country}"]`).click()
+    await phone.pressSequentially(digits!)
+    expect((await phone.inputValue()).replace(/\D/g, '')).toBe(digits)
+    await phone.blur()
+    await expect(phone).not.toHaveAttribute('aria-invalid', 'true')
+  }
+})
+
 test('изображения загружаются с учётом базового пути сайта', async ({ page, baseURL }) => {
   await page.goto('./')
   const basePath = new URL(baseURL!).pathname
