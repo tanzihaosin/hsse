@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import type { EducationCreditProps } from '../model/EducationCredit.types'
 
-defineProps<EducationCreditProps>()
+const props = defineProps<EducationCreditProps>()
+const baseURL = useRuntimeConfig().app.baseURL
+const imageSrc = computed(() => props.image.startsWith('/') && !props.image.startsWith('//') && /\.svg(?:[?#]|$)/i.test(props.image)
+  ? `${baseURL.replace(/\/$/, '')}${props.image}`
+  : props.image)
 </script>
 
 <template>
   <section class="container">
     <UiHeading as="h2">{{ title }}</UiHeading>
     <div class="mt-10 grid items-center gap-8 md:mt-16 md:grid-cols-[2fr_3fr]">
-      <NuxtPicture :src="image" alt="" width="201" height="121" class="mx-auto block w-50 max-w-full" :img-attrs="{ class: 'h-auto w-full' }" />
+      <NuxtPicture :src="imageSrc" alt="" width="201" height="121" class="mx-auto block w-50 max-w-full" :img-attrs="{ class: 'h-auto w-full' }" />
       <div>
         <UiHeading as="h3" variant="h3" uppercase class="font-semibold tracking-[2px]">{{ explanationTitle }}</UiHeading>
         <ul class="mt-7 space-y-1">

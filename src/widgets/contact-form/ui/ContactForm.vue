@@ -12,6 +12,9 @@ const props = withDefaults(defineProps<ContactFormProps>(), {
 })
 const config = useRuntimeConfig()
 const privacyHref = computed(() => `${config.app.baseURL.replace(/\/$/, '')}${props.privacyUrl}`)
+const imageSrc = computed(() => props.image.startsWith('/') && !props.image.startsWith('//') && /\.svg(?:[?#]|$)/i.test(props.image)
+  ? `${config.app.baseURL.replace(/\/$/, '')}${props.image}`
+  : props.image)
 const form = reactive({ name: '', phone: '', email: '', question: '', consent: false })
 const message = ref('')
 const phoneValidity = ref<PhoneValidity>('empty')
@@ -38,7 +41,7 @@ function submit() {
     <div class="container flex flex-col gap-8 pt-12 md:flex-row md:gap-10 md:pt-16">
       <div class="flex flex-1 flex-col">
         <UiHeading as="h2" variant="h3" uppercase class="max-w-65 font-dewi font-semibold leading-6 tracking-[2px]">{{ title }}</UiHeading>
-        <NuxtPicture :src="image" alt="" :width="828" :height="776" loading="lazy" class="mt-auto hidden max-w-120 pt-8 md:block" :img-attrs="{ class: 'w-full' }" />
+        <NuxtPicture :src="imageSrc" alt="" :width="828" :height="776" loading="lazy" class="mt-auto hidden max-w-120 pt-8 md:block" :img-attrs="{ class: 'w-full' }" />
       </div>
       <form v-if="!registrationClosed && !submissionSucceeded" class="flex flex-1 flex-col gap-4 pb-12" novalidate @submit.prevent="submit">
         <UiText>Отправка вопросов пока недоступна. Форма представлена для ознакомления.</UiText>
