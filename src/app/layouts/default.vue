@@ -24,11 +24,11 @@ useHead({
 </script>
 
 <template>
-  <div class="flex flex-col pt-5">
+  <div class="flex min-h-screen flex-col pt-5">
     <Preloader :visible="loading" />
-    <div :inert="(appReady && loading) || menuOpen || undefined" :aria-busy="loading">
+    <div class="flex flex-1 flex-col" :inert="(appReady && loading) || menuOpen || undefined" :aria-busy="loading">
       <TheHeader v-model="menuOpen" />
-      <main class="flex flex-col space-y-15 lg:space-y-35 mt-16">
+      <main class="mt-16 flex flex-1 flex-col space-y-15 lg:space-y-35">
         <slot />
       </main>
       <TheFooter />
