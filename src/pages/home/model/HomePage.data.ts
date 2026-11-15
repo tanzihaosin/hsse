@@ -13,6 +13,7 @@ import type { FactsBlockProps } from '~/widgets/facts-block'
 import type { EventsHsseProps } from '~/widgets/home/events-hsse'
 import type { FaqBlockProps } from '~/widgets/home/faq-block'
 import { typograf } from '~/shared/lib/typograf'
+import type { ContentPage } from '~/shared/lib/content-page'
 
 
 export const hero: HeroBlockProps = {
@@ -231,7 +232,7 @@ export const admissionOverview: AdmissionOverviewProps = {
   ],
 }
 
-export const factsBlocks: FactsBlockProps[] = [
+export const factsBlocks: [FactsBlockProps, FactsBlockProps, FactsBlockProps] = [
   {
     title: typograf('План набора *'),
     items: [
@@ -445,5 +446,32 @@ export const telegramPromo: PromoBlockProps = {
   actions: [
     { label: typograf('Перейти в канал Telegram'), to: 'https://t.me/hsse_mipt' },
     { label: typograf('Перейти в чат Telegram'), to: 'https://t.me/hsse_entering' },
+  ],
+}
+
+export const homePageData: ContentPage = {
+  slug: '/',
+  version: 1,
+  meta: {
+    description: 'Высшая школа программной инженерии МФТИ: образовательные программы, проектная практика, команда и условия поступления.',
+  },
+  blocks: [
+    { id: 'hero', type: 'home.hero', order: 10, enabled: true, data: hero },
+    { id: 'video', type: 'video', order: 20, enabled: true, anchor: 'about', data: video },
+    { id: 'advantages', type: 'advantages', order: 30, enabled: true, anchor: 'learn', data: advantages },
+    { id: 'project-practice', type: 'home.project-practice', order: 40, enabled: true, data: projectPractice },
+    { id: 'partners', type: 'partners', order: 50, enabled: true, data: partners },
+    { id: 'education-career', type: 'education-career', order: 60, enabled: true, data: educationCareer },
+    { id: 'people', type: 'people-slider', order: 70, enabled: true, anchor: 'team', data: peopleSlider },
+    { id: 'best-projects', type: 'home.best-project', order: 80, enabled: true, data: bestProjects },
+    { id: 'admission-paths', type: 'home.admission-paths', order: 90, enabled: true, anchor: 'kakpostupit', data: admissionPaths },
+    { id: 'admission-overview', type: 'admission-overview', order: 100, enabled: true, data: admissionOverview },
+    { id: 'admission-places', type: 'facts', order: 110, enabled: true, data: factsBlocks[0] },
+    { id: 'admission-scores', type: 'facts', order: 120, enabled: true, data: factsBlocks[1] },
+    { id: 'admission-statistics', type: 'facts', order: 130, enabled: true, data: factsBlocks[2] },
+    { id: 'events', type: 'home.events', order: 140, enabled: true, data: eventsHsse },
+    { id: 'faq', type: 'home.faq', order: 150, enabled: true, data: faq },
+    { id: 'contact-form', type: 'contact-form', order: 160, enabled: true, data: {} },
+    { id: 'telegram-promo', type: 'promo', order: 170, enabled: true, data: telegramPromo },
   ],
 }

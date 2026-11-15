@@ -1,5 +1,14 @@
 import { expect, test } from '@playwright/test'
 
+test('главная сохраняет порядок разделов и якоря', async ({ page }) => {
+  await page.goto('./')
+  const sections = page.locator('#about, #learn, #team, #kakpostupit, #form')
+  await expect(sections).toHaveCount(5)
+  expect(await sections.evaluateAll(elements => elements.map(element => element.id)))
+    .toEqual(['about', 'learn', 'team', 'kakpostupit', 'form'])
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Высшая школа программной инженерии')
+})
+
 test('мобильное меню открывается и ведёт на страницу программы', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto('./')
